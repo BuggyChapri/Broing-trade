@@ -1,0 +1,131 @@
+{% extends 'layout.html' %} {% block body %}
+<h1>Crypto News</h1>
+
+{% if get_Global_Crypto_Data %}
+<div class="news-container">
+  {% for news in get_Global_Crypto_Data %}
+  <div class="news-item">
+    <h2>Coin Statistics</h2>
+    <table>
+      <tr>
+        <th>Coin Count</th>
+        <td>{{ news.coins_count }}</td>
+      </tr>
+      <tr>
+        <th>Active Markets</th>
+        <td>{{ news.active_markets }}</td>
+      </tr>
+      <tr>
+        <th>Total Market Cap</th>
+        <td>{{ news.total_mcap }}</td>
+      </tr>
+      <tr>
+        <th>Total Volume</th>
+        <td>{{ news.total_volume }}</td>
+      </tr>
+      <tr>
+        <th>BTC Dominance</th>
+        <td>{{ news.btc_d }}</td>
+      </tr>
+      <tr>
+        <th>ETH Dominance</th>
+        <td>{{ news.eth_d }}</td>
+      </tr>
+      <tr>
+        <th>Market Cap Change</th>
+        <td>{{ news.mcap_change }}</td>
+      </tr>
+      <tr>
+        <th>Volume Change</th>
+        <td>{{ news.volume_change }}</td>
+      </tr>
+      <tr>
+        <th>Average Change Percent</th>
+        <td>{{ news.avg_change_percent }}</td>
+      </tr>
+      <tr>
+        <th>Volume ATH</th>
+        <td>{{ news.volume_ath }}</td>
+      </tr>
+      <tr>
+        <th>Market Cap ATH</th>
+        <td>{{ news.mcap_ath }}</td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<h1>Sorry, no news available at the moment.</h1>
+{% endif %} {% if ttickers %}
+<h1>Cryptocurrency Tickers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Price (USD)</th>
+      <th>Price (BTC)</th>
+      <th>Market Cap (USD)</th>
+      <th>24h Change</th>
+      <th>1h Change</th>
+      <th>7d Change</th>
+      <th>Circulating Supply</th>
+      <th>Total Supply</th>
+      <th>Max Supply</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ticker in ttickers %}
+    <tr>
+      <td>{{ ticker.rank }}</td>
+      <td>{{ ticker.symbol }}</td>
+      <td>{{ ticker.name }}</td>
+      <td>{{ ticker.price_usd }}</td>
+      <td>{{ ticker.price_btc }} BTC</td>
+      <td>{{ ticker.market_cap_usd }}</td>
+      <td>{{ ticker.percent_change_24h }}%</td>
+      <td>{{ ticker.percent_change_1h }}%</td>
+      <td>{{ ticker.percent_change_7d }}%</td>
+      <td>{{ ticker.csupply }}</td>
+      <td>{{ ticker.tsupply }}</td>
+      <td>{{ ticker.msupply }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %} {% endif %} {% if ttickers %}
+    <h1>Market coins</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Base</th>
+                <th>Quote</th>
+                <th>Price (USD)</th>
+                <th>Volume (24h)</th>
+                <th>Volume (USD)</th>
+                <th>24h Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mc in market_coins %}
+                <tr>
+                    <td>{{ mc.name }}</td>
+                    <td>{{ mc.base }}</td>
+                    <td>{{ mc.quote }}</td>
+                    <td>${{ mc.price_usd }}</td>
+                    <td>{{ mc.volume }}</td>
+                    <td>${{ mc.volume_usd }}</td>
+                    <td>{{ mc.time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No data available</p>
+{% endif %}
+  </tbody>
+</table>    
+{% endblock %}  

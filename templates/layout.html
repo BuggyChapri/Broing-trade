@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BitBlock</title>
+  </head>
+  <body>
+    {% block body %} {% endblock %}
+    <canvas id="priceChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("priceChart").getContext("2d");
+      const priceChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Day 1", "Day 2", "Day 3"],
+          datasets: [
+            {
+              label: "Price (USD)",
+              data: [46850.28, 47121.97, 47500.0],
+              borderColor: "rgba(75, 192, 192, 1)",
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: { title: { display: true, text: "Time" } },
+            y: { title: { display: true, text: "Price (USD)" } },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
