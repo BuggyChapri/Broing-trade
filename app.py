@@ -7,7 +7,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 db = SQLAlchemy(app)
 
 NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
-TICKERS = "https://api.coinlore.net/api/tickers/?start=200&limit=100"
+TICKERS = "https://api.coinlore.net/api/tickers/?start=0&limit=100"
 MARKET_COINS = " https://api.coinlore.net/api/coin/markets/?id=90"
 
 @app.route("/")
