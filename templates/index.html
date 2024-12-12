@@ -1,6 +1,4 @@
-{% extends 'layout.html' %}
-
-{% block body %}
+{% extends 'layout.html' %} {% block body %}
 <div class="container my-5">
   <h1 class="text-center mb-4">Crypto News</h1>
 
@@ -65,9 +63,7 @@
   </div>
   {% else %}
   <h2 class="text-center">Sorry, no news available at the moment.</h2>
-  {% endif %}
-
-  {% if ttickers %}
+  {% endif %} {% if ttickers %}
   <div class="cryptocurrency-tickers mb-5">
     <h1 class="text-center">Cryptocurrency Tickers</h1>
     <table class="table table-striped table-hover mt-4">
@@ -114,12 +110,11 @@
     <div class="chart-section">
       <h3 class="text-center">Price Change Chart</h3>
       <canvas id="percentChangeChart" class="mb-5"></canvas>
-    </div>   
+    </div>
     <div class="chart-section">
       <h3 class="text-center">Price Change Chart</h3>
       <canvas id="supplyChart" class="mb-5"></canvas>
     </div>
-
   </div>
 
   <div class="market-coins mb-5">
@@ -153,6 +148,42 @@
   </div>
   {% else %}
   <p class="text-center">No data available</p>
+  {% endif %}
+</div>
+<div class="container my-5">
+  <h1 class="text-center mb-4">Crypto News</h1>
+
+  {% if ne_ws %}
+  <div class="crypto-news mb-5">
+    <h2 class="text-center">Latest News</h2>
+    <div class="row">
+      {% for news_item in ne_ws %}
+      <div class="col-md-4">
+        <div class="card">
+          {% if news_item.urlToImage %}
+          <img
+            src="{{ news_item.urlToImage }}"
+            class="card-img-top"
+            alt="news image"
+          />
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ news_item.title }}</h5>
+            <p class="card-text">{{ news_item.description }}</p>
+            <a
+              href="{{ news_item.url }}"
+              class="btn btn-primary"
+              target="_blank"
+              >Read More</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <h2 class="text-center">Sorry, no news available at the moment.</h2>
   {% endif %}
 </div>
 {% endblock %}

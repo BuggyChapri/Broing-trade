@@ -10,12 +10,17 @@ NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
 TICKERS = "https://api.coinlore.net/api/tickers/?start=0&limit=100"
 MARKET_COINS = " https://api.coinlore.net/api/coin/markets/?id=90"
 
+NEWS_API_KEY = "0c31e0ef9b1044378a917932afc3b5a6"
+URL = f"https://newsapi.org/v2/everything?q=bitcoin&apiKey=0c31e0ef9b1044378a917932afc3b5a6"
+
+
 @app.route("/")
 def index():
     get_Global_Crypto_Data = Get_Global_Crypto_Data() 
     ttickers = Tickers()
     market_coins = Market_coins()
-    return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins)
+    ne_ws = News()
+    return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins, ne_ws = ne_ws)
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)
@@ -76,6 +81,21 @@ def Market_coins():
     else:
         print("BAD GATEWAY OR SORRY")
 
+def News():
+    response = requests.get(URL)
+    news = []
+    if response.status_code == 200:
+        data = response.json()
+        for i in data["articles"]:
+            news.append({
+                "author": i["author"],
+                "title": i["title"],
+                "description": i["description"],
+                "url": i["url"],
+                "urlToImage": i["urlToImage"],
+                "publishedAt": i["publishedAt"]
+            })
+    return news
 
 
 if __name__ == "__main__":

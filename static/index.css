@@ -33,3 +33,16 @@
   th {
     background-color: #f4f4f4;
   }
+
+  .crypto-news .card {
+    margin-bottom: 20px;
+  }
+
+  .crypto-news .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .crypto-news .card-body {
+    text-align: center;
+  }
