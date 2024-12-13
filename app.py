@@ -95,6 +95,7 @@ def Market_coins():
 
 def Tickerspecificcoin():
     response = requests.get(TickerSpecificCoin)
+    s_ticker = []
     if response.status_code == 200:
         return response.json()
     else:
