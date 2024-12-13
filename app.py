@@ -9,7 +9,6 @@ db = SQLAlchemy(app)
 NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
 TICKERS = "https://api.coinlore.net/api/tickers/?start=0&limit=100"
 MARKET_COINS = "https://api.coinlore.net/api/coin/markets/?id=90"
-TickerSpecificCoin = "https://api.coinlore.net/api/ticker/?id={}"
 
 NEWS_API_KEY = "0c31e0ef9b1044378a917932afc3b5a6"
 URL = f"https://newsapi.org/v2/everything?q=bitcoin&apiKey={NEWS_API_KEY}"
@@ -37,23 +36,7 @@ def news():
 
 @app.route("/coin", methods=["GET", "POST"])
 def coins():
-    coin_id = None
-
-    if request.method == "POST":
-        ticker = Tickers()
-        if ticker:
-            coin_id = ticker[0]["id"] 
-            print(f"Selected Coin ID: {coin_id}")
-        else:
-            print("No ticker data available.")
-
-    if coin_id is not None:
-        ticker_sc = Ticker_sc(coin_id)
-    else:
-        ticker_sc = {"error": "Coin ID not provided or unavailable"}
-
-    return render_template("coinweight.html", ticker_sc=ticker_sc)
-
+    return render_template("coinweight.html")
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)

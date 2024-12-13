@@ -92,7 +92,7 @@
         <tr>
           <td>{{ ticker.rank }}</td>
           <td>{{ ticker.symbol }}</td>
-          <form action="/" method="post">
+          <form action="/coin" method="post">
             <button type="submit"><td><a href="/coin">{{ ticker.name }}</a></td></button>
           </form>
           <td>${{ ticker.price_usd }}</td>
