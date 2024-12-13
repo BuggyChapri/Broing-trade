@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% if tick_sp_coin %}
+        {% for i in tick_sp_coin %}
+            <h1>i.name</h1>
+        {% endfor %}
+    {% else %}
+        <h1>fuck</h1>
+    {% endif %}
+{% endblock %}

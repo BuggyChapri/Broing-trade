@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
 TICKERS = "https://api.coinlore.net/api/tickers/?start=0&limit=100"
 MARKET_COINS = " https://api.coinlore.net/api/coin/markets/?id=90"
+TickerSpecificCoin = "https://api.coinlore.net/api/ticker/?id={}"
 
 NEWS_API_KEY = "0c31e0ef9b1044378a917932afc3b5a6"
 URL = f"https://newsapi.org/v2/everything?q=bitcoin&apiKey=0c31e0ef9b1044378a917932afc3b5a6"
@@ -19,8 +20,21 @@ def index():
     get_Global_Crypto_Data = Get_Global_Crypto_Data() 
     ttickers = Tickers()
     market_coins = Market_coins()
+
+    return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins)
+
+@app.route("/coin/<int:coin_id>")
+def coin():
+    tick_sp_coin = Tickerspecificcoin(coin_id)
+    if tick_sp_coin:
+        return render_template("coinweight.html", tick_sp_coin=tick_sp_coin)
+    else:
+        return "Coin not found", 404
+
+@app.route("/news")
+def news():
     ne_ws = News()
-    return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins, ne_ws = ne_ws)
+    return render_template("news.html", ne_ws = ne_ws)
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)
@@ -37,6 +51,7 @@ def Tickers():
     if response.status_code == 200:
         data = response.json()
         for i in data["data"]:
+            id = i["id"]
             symbol = i["symbol"]
             name = i["name"]
             nameid = i["nameid"]
@@ -81,6 +96,13 @@ def Market_coins():
     else:
         print("BAD GATEWAY OR SORRY")
 
+def Tickerspecificcoin():
+    response = requests.get(TickerSpecificCoin)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("FUCK")
+
 def News():
     response = requests.get(URL)
     news = []
@@ -96,7 +118,6 @@ def News():
                 "publishedAt": i["publishedAt"]
             })
     return news
-
 
 if __name__ == "__main__":
     with app.app_context():
