@@ -34,9 +34,11 @@ def news():
     return render_template("news.html", ne_ws=news_data)
 
 
-@app.route("/coin", methods=["GET", "POST"])
-def coins():
-    return render_template("coinweight.html")
+@app.route("/coin/<int:coin_id>")
+def coins(coin_id):
+    coin_data = Ticker_sc(coin_id)
+    print(f"Selected Coin ID: {coin_id}")
+    return render_template("coinweight.html", coin_data=coin_data)
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)
@@ -87,7 +89,8 @@ def Market_coins():
 
 
 def Ticker_sc(coin_id):
-    response = requests.get(TickerSpecificCoin.format(coin_id))
+    url = f"https://api.coinlore.net/api/ticker/?id={coin_id}"
+    response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     else:
