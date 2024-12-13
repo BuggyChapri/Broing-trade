@@ -23,15 +23,15 @@ def index():
 
     return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins)
 
-@app.route("/coin")
-def coin():
-    tick_sp_coin = Tickerspecificcoin()
-    return render_template("coinweight.html", tick_sp_coin=tick_sp_coin)
-
 @app.route("/news")
 def news():
     ne_ws = News()
     return render_template("news.html", ne_ws = ne_ws)
+
+@app.route("/coin")
+def coins():
+    ticker_sc = Ticker_sc()
+    return render_template("coinweight.html", ticker_sc = ticker_sc)
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)
@@ -93,13 +93,14 @@ def Market_coins():
     else:
         print("BAD GATEWAY OR SORRY")
 
-def Tickerspecificcoin():
-    response = requests.get(TickerSpecificCoin)
-    s_ticker = []
+def Ticker_sc():
+    coin_id = 90  
+    response = requests.get(TickerSpecificCoin.format(coin_id))
     if response.status_code == 200:
-        return response.json()
+        return response.json() 
     else:
-        print("FUCK")
+        print("Failed to fetch data!")
+        return []
 
 def News():
     response = requests.get(URL)
