@@ -1,10 +1,26 @@
-{% extends 'layout.html' %}
-{% block body %}
-    {% if ticker_sc %}
-        {% for coin in ticker_sc %}
-            <h1>{{ coin.name }}</h1>
-        {% endfor %}
-    {% else %}
-        <h1>No Data Found</h1>
-    {% endif %}
+{% extends 'layout.html' %} {% block body %}
+<div class="cryptocurrency-tickers mb-5">
+  {% if coin_data %} {% for coins in coin_data %}
+  <h1 class="text-center" style="display: inline;">{{coins.name}}</h1>
+  <p>{{ coins.symbol }}</p>
+  {% endfor %}
+      {% for coin in coin_data %}
+        <p>{{ coin.rank }}</p>
+        <p>price_usd ${{ coin.price_usd }}</p>
+        <p>price_btc {{ coin.price_btc }} BTC</p>
+        <h3>Market capital ${{ coin.market_cap_usd }}</h3>
+        <p>percent_change_1h {{ coin.percent_change_24h }}%</p>
+        <p>percent_change_1h { coin.percent_change_1h }}%</p>
+        <p>percent_change_7d {{ coin.percent_change_7d }}%</p>
+        <p>coin Supply{{ coin.csupply }}</td>
+        <p>coin tsupply {{ coin.tsupply }}</td>
+      {% endfor %}
+      {% else %}
+  <h1 class="text-center">No Data Found</h1>
+  {% endif %}
+</div>
+<div class="chart-section">
+    <h3 class="text-center">Price Change Chart</h3>
+    <canvas id="sp_coin_chart" class="mb-5"></canvas>
+  </div>
 {% endblock %}

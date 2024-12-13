@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import requests
 
@@ -26,12 +26,17 @@ def index():
         ttickers=tickers,
         market_coins=market_coins,
     )
-
+    return jsonify({
+        "global_data": global_data,
+        "tickers": tickers,
+        "market_coins": market_coins
+    })
 
 @app.route("/news")
 def news():
     news_data = News()
     return render_template("news.html", ne_ws=news_data)
+    return jsonify(news_data)
 
 
 @app.route("/coin/<int:coin_id>")
