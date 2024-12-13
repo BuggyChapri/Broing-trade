@@ -23,13 +23,10 @@ def index():
 
     return render_template("index.html", get_Global_Crypto_Data = get_Global_Crypto_Data, ttickers = ttickers, market_coins = market_coins)
 
-@app.route("/coin/<int:coin_id>")
+@app.route("/coin")
 def coin():
-    tick_sp_coin = Tickerspecificcoin(coin_id)
-    if tick_sp_coin:
-        return render_template("coinweight.html", tick_sp_coin=tick_sp_coin)
-    else:
-        return "Coin not found", 404
+    tick_sp_coin = Tickerspecificcoin()
+    return render_template("coinweight.html", tick_sp_coin=tick_sp_coin)
 
 @app.route("/news")
 def news():
