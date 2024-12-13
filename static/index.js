@@ -145,6 +145,6 @@ function Tickers() {
             console.error("Error fetching ticker data:", error);
         });
 }
-       
+
 market_data();
 Tickers();
