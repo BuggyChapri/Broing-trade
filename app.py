@@ -38,12 +38,16 @@ def news():
     return render_template("news.html", ne_ws=news_data)
     return jsonify(news_data)
 
+@app.route("/learn")
+def learn():
+    return render_template("learn.html")
 
 @app.route("/coin/<int:coin_id>")
 def coins(coin_id):
     coin_data = Ticker_sc(coin_id)
     print(f"Selected Coin ID: {coin_id}")
     return render_template("coinweight.html", coin_data=coin_data)
+    return jsonify(coin_id)
 
 def Get_Global_Crypto_Data():
     response = requests.get(NEWS_API_GLOBAL_DATA)
