@@ -2,7 +2,6 @@ const mcc = document.getElementById("marketCapChart");;
 const tickers = document.getElementById("priceChangeChart")
 const NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
 const Cryptocurrency_Tickers = "https://api.coinlore.net/api/tickers/?start=200&limit=100"
-const sp_coin_ticker = `https://api.coinlore.net/api/ticker/?id=${coin_id}`
 
 function market_data() {
     fetch(NEWS_API_GLOBAL_DATA)
