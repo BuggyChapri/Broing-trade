@@ -2,6 +2,7 @@ const mcc = document.getElementById("marketCapChart");;
 const tickers = document.getElementById("priceChangeChart")
 const NEWS_API_GLOBAL_DATA = "https://api.coinlore.net/api/global/"
 const Cryptocurrency_Tickers = "https://api.coinlore.net/api/tickers/?start=200&limit=100"
+const sp_coin_ticker = `https://api.coinlore.net/api/ticker/?id=${coin_id}`
 
 function market_data() {
     fetch(NEWS_API_GLOBAL_DATA)
@@ -145,22 +146,5 @@ function Tickers() {
             console.error("Error fetching ticker data:", error);
         });
 }
-// function sp_coin() {
-//     fetch(`/coin/${coin_id}`)
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error("Network response was not ok " + response.statusText);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log(data); 
-//         })
-//         .catch(error => {
-//             console.error("There was a problem with the fetch operation:", error);
-//         });
-// }
-
-// sp_coin()
 market_data();
 Tickers();
